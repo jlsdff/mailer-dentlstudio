@@ -31,13 +31,21 @@ export async function POST(request: Request) {
       { success: true, message: "Email sent successfully ✅" },
       { status: 200 }
     )
-  } catch (error: any) {
-    console.error("Email send error:", error)
+  } catch (error: unknown) {
+
+    let errorMessage = "An unexpected error occurred"
+
+    if (error instanceof Error) {
+      errorMessage = error.message
+    } else if (typeof error === "string") {
+      errorMessage = error
+    }
 
     return Response.json(
-      { success: false, message: "Failed to send email ❌", error: error.message },
+      { success: false, message: "Failed to send email ❌", error: errorMessage },
       { status: 500 }
     )
+
   }
 }
 
