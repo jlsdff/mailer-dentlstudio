@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
     await transporter.sendMail({
       from: "info@thedentlstudio.com",
-      to: "juliusterrence.duff@gmail.com",
+      to: email,
       subject: `Password Reset Link`,
       text: `
         Password Reset Link
