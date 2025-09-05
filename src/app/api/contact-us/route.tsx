@@ -12,6 +12,7 @@ export async function POST(request: Request) {
       )
     }
 
+    //todo: get email from env variable
     await transporter.sendMail({
       from: "info@thedentlstudio.com",
       to: "info@thedentlstudio.com",
