@@ -1,4 +1,4 @@
-import { generateEmailTemplate, generateResetPasswordEmailTemplate } from "@/lib/generate-mail"
+import { generateResetPasswordEmailTemplate } from "@/lib/generate-mail"
 import { transporter } from "@/lib/mailer"
 
 export async function POST(request: Request) {
