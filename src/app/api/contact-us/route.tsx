@@ -1,21 +1,32 @@
-import { generateEmailTemplate } from "@/lib/generate-mail"
+import { generateEnquiryEmaiTemplate } from "@/lib/generate-mail"
 import { transporter } from "@/lib/mailer"
 
 export async function POST(request: Request) {
   try {
-    const { firstname, lastname, email, message } = await request.json()
+    const { firstname, lastname, email, message, phone_number } = await request.json()
 
-    if (!firstname || !lastname || !email || !message) {
+    if (!firstname || !lastname || !email || !message || !phone_number) {
       return Response.json(
         { success: false, message: "Missing required fields" },
         { status: 400 }
       )
     }
 
+    console.log(
+      `
+       \n\n\n
+       NEW ENQUIRY: ${lastname}, ${firstname} \n 
+       EMAIL: ${email} \n
+       PHONE NUMBER: ${phone_number} \n\n
+       MESSAGE: ${message}
+       \n\n\n
+      `
+    )
+
     //todo: get email from env variable
     await transporter.sendMail({
       from: "info@thedentlstudio.com",
-      to: "info@thedentlstudio.com",
+      to: process.env.STAFF_MAIL,
       subject: `New Enquiry from ${firstname} ${lastname}`,
       text: `
         You have a new enquiry.
@@ -25,7 +36,7 @@ export async function POST(request: Request) {
         Message:
         ${message}
       `,
-      html: generateEmailTemplate(firstname, lastname, email, message)
+      html: generateEnquiryEmaiTemplate(firstname, lastname, email, phone_number, message)
     })
 
     return Response.json(

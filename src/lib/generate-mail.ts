@@ -1,7 +1,8 @@
-export function generateEmailTemplate(
+export function generateEnquiryEmaiTemplate(
   firstname: string,
   lastname: string,
   email: string,
+  phone_number: string,
   message: string
 ): string {
   return `
@@ -71,6 +72,7 @@ export function generateEmailTemplate(
           <h2>New Enquiry Received</h2>
           <p><strong>Name:</strong> ${firstname} ${lastname}</p>
           <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone Number:</strong> ${phone_number}</p>
           <div class="message-box">
             ${message}
           </div>
@@ -83,7 +85,6 @@ export function generateEmailTemplate(
     </html>
   `
 }
-
 export function generateResetPasswordEmailTemplate(
   email: string,
   reset_url: string,
